@@ -1,0 +1,792 @@
+/*-------------------------
+	Simple reset
+--------------------------*/
+*{
+	margin:0;
+	padding:0;
+	min-height: 0 !important;
+}
+
+/*-------------------------
+	General Styles
+--------------------------*/
+
+.hidden{
+	display: none;
+}
+
+.element{
+	background-image: url("../img/charactericon.png");
+	width: 100px;
+	height: 100px;
+}
+
+@import url(http://fonts.googleapis.com/css?family=Lato:300|Ubuntu:300);
+
+
+html, body {
+    font:15px/1.3 Arial, sans-serif;
+	z-index:1;	
+}
+
+#hexClock {
+    position: relative;
+    text-align: center;
+    font-size: 0px;
+}
+
+#time {
+    font-size: 0px;
+    font-family: 'Lato';
+}
+
+#hexColor {
+    margin-top: 5px;
+    font-family: 'Ubuntu';
+}
+
+a, a:visited {
+	/*outline:none;*/
+	/*color:#389dc1;*/
+}
+
+a:hover{
+	text-decoration:none;
+}
+
+section, footer, header, aside{
+	display: block;
+}
+
+/*-------------------------
+	The clocks
+--------------------------*/
+
+@charset "UTF-8";
+/* CSS Document */
+
+
+#clock{
+	/* width and left are changed in js */
+	position:absolute;
+	width: 370px;
+	padding: 0px 15px 0px 5px !important;
+	top: 20%;
+}
+
+#clock:after{
+	/*
+	position:absolute;
+	width:400px;
+	height:20px;
+	border-radius:100%;
+	left:50%;
+	bottom:2px;
+	z-index:-1;
+	*/
+}
+
+
+#clock .display{
+	text-align:center;
+	padding: 3em 0em 4em 0em;
+	border-radius:6px;
+	position:relative;
+}
+
+
+/*-------------------------
+	Dark color theme
+--------------------------*/
+
+#clock.dark{
+	/*background-color:#272e38;*/
+	color:#cacaca;
+}
+
+#clock.dark:after{
+	box-shadow:0 4px 10px rgba(0,0,0,0.3);
+}
+
+#clock.dark .digits div span{
+	background-color:#cacaca;
+	border-color:#cacaca;	
+}
+
+#clock.dark .alarm{
+	background:url('../img/alarm_dark.jpg');
+}
+
+#clock.dark .display{
+/*	background-color:#0f1620;
+	box-shadow:0 1px 1px rgba(0,0,0,0.08) inset, 0 1px 1px #2d3642;*/
+}
+
+#clock.dark .digits div.dots:before,
+#clock.dark .digits div.dots:after{
+	background-color:#cacaca;
+}
+
+
+/*-------------------------
+	The Digits
+--------------------------*/
+
+#clock .digits div{
+	text-align:left;
+	position:relative;
+	width: 28px;
+	height:50px;
+	display:inline-block;
+	margin:0 4px;
+}
+
+#clock .digits div span{
+	opacity:0;
+	position:absolute;
+
+	-webkit-transition:0.25s;
+	-moz-transition:0.25s;
+	transition:0.25s;
+}
+
+#clock .digits div span:before,
+#clock .digits div span:after{
+	content:'';
+	position:absolute;
+	width:0;
+	height:0;
+	border:5px solid transparent;
+}
+
+#clock .digits .d1{			height:5px;width:16px;top:0;left:6px;}
+#clock .digits .d1:before{	border-width:0 5px 5px 0;border-right-color:inherit;left:-5px;}
+#clock .digits .d1:after{	border-width:0 0 5px 5px;border-left-color:inherit;right:-5px;}
+
+#clock .digits .d2{			height:5px;width:16px;top:24px;left:6px;}
+#clock .digits .d2:before{	border-width:3px 4px 2px;border-right-color:inherit;left:-8px;}
+#clock .digits .d2:after{	border-width:3px 4px 2px;border-left-color:inherit;right:-8px;}
+
+#clock .digits .d3{			height:5px;width:16px;top:48px;left:6px;}
+#clock .digits .d3:before{	border-width:5px 5px 0 0;border-right-color:inherit;left:-5px;}
+#clock .digits .d3:after{	border-width:5px 0 0 5px;border-left-color:inherit;right:-5px;}
+
+#clock .digits .d4{			width:5px;height:14px;top:7px;left:0;}
+#clock .digits .d4:before{	border-width:0 5px 5px 0;border-bottom-color:inherit;top:-5px;}
+#clock .digits .d4:after{	border-width:0 0 5px 5px;border-left-color:inherit;bottom:-5px;}
+
+#clock .digits .d5{			width:5px;height:14px;top:7px;right:0;}
+#clock .digits .d5:before{	border-width:0 0 5px 5px;border-bottom-color:inherit;top:-5px;}
+#clock .digits .d5:after{	border-width:5px 0 0 5px;border-top-color:inherit;bottom:-5px;}
+
+#clock .digits .d6{			width:5px;height:14px;top:32px;left:0;}
+#clock .digits .d6:before{	border-width:0 5px 5px 0;border-bottom-color:inherit;top:-5px;}
+#clock .digits .d6:after{	border-width:0 0 5px 5px;border-left-color:inherit;bottom:-5px;}
+
+#clock .digits .d7{			width:5px;height:14px;top:32px;right:0;}
+#clock .digits .d7:before{	border-width:0 0 5px 5px;border-bottom-color:inherit;top:-5px;}
+#clock .digits .d7:after{	border-width:5px 0 0 5px;border-top-color:inherit;bottom:-5px;}
+
+
+/* 1 */
+
+#clock .digits div.one .d5,
+#clock .digits div.one .d7{
+	opacity:1;
+}
+
+/* 2 */
+
+#clock .digits div.two .d1,
+#clock .digits div.two .d5,
+#clock .digits div.two .d2,
+#clock .digits div.two .d6,
+#clock .digits div.two .d3{
+	opacity:1;
+}
+
+/* 3 */
+
+#clock .digits div.three .d1,
+#clock .digits div.three .d5,
+#clock .digits div.three .d2,
+#clock .digits div.three .d7,
+#clock .digits div.three .d3{
+	opacity:1;
+}
+
+/* 4 */
+
+#clock .digits div.four .d5,
+#clock .digits div.four .d2,
+#clock .digits div.four .d4,
+#clock .digits div.four .d7{
+	opacity:1;
+}
+
+/* 5 */
+
+#clock .digits div.five .d1,
+#clock .digits div.five .d2,
+#clock .digits div.five .d4,
+#clock .digits div.five .d3,
+#clock .digits div.five .d7{
+	opacity:1;
+}
+
+/* 6 */
+
+#clock .digits div.six .d1,
+#clock .digits div.six .d2,
+#clock .digits div.six .d4,
+#clock .digits div.six .d3,
+#clock .digits div.six .d6,
+#clock .digits div.six .d7{
+	opacity:1;
+}
+
+
+/* 7 */
+
+#clock .digits div.seven .d1,
+#clock .digits div.seven .d5,
+#clock .digits div.seven .d7{
+	opacity:1;
+}
+
+/* 8 */
+
+#clock .digits div.eight .d1,
+#clock .digits div.eight .d2,
+#clock .digits div.eight .d3,
+#clock .digits div.eight .d4,
+#clock .digits div.eight .d5,
+#clock .digits div.eight .d6,
+#clock .digits div.eight .d7{
+	opacity:1;
+}
+
+/* 9 */
+
+#clock .digits div.nine .d1,
+#clock .digits div.nine .d2,
+#clock .digits div.nine .d3,
+#clock .digits div.nine .d4,
+#clock .digits div.nine .d5,
+#clock .digits div.nine .d7{
+	opacity:1;
+}
+
+/* 0 */
+
+#clock .digits div.zero .d1,
+#clock .digits div.zero .d3,
+#clock .digits div.zero .d4,
+#clock .digits div.zero .d5,
+#clock .digits div.zero .d6,
+#clock .digits div.zero .d7{
+	opacity:1;
+}
+
+
+/* The dots */
+
+#clock .digits div.dots{
+	width:5px;
+}
+
+#clock .digits div.dots:before,
+#clock .digits div.dots:after{
+	width:5px;
+	height:5px;
+	content:'';
+	position:absolute;
+	left:0;
+	top:14px;
+}
+
+#clock .digits div.dots:after{
+	top:34px;
+}
+
+
+/*-------------------------
+	The Alarm
+--------------------------*/
+
+
+#clock .alarm{
+	width:16px;
+	height:16px;
+	bottom:20px;
+	background:url('../img/alarm_dark.jpg');
+	position:absolute;
+	opacity:0.2;
+}
+
+#clock .alarm.active{
+	opacity:1;
+}
+
+
+/*SLIDER BARS*/
+#slider {
+	width: 400px;
+	height: 5px;
+	position: relative;
+	margin: 100px auto;
+	background: #10171D;
+	
+	-webkit-border-radius: 40px;
+	-moz-border-radius: 40px;
+	border-radius: 40px;
+	
+	-webkit-box-shadow: inset 0px 0px 1px 1px rgba(0, 0, 0, 0.9), 0px 1px 1px 0px rgba(255, 255, 255, 0.13);
+	-moz-box-shadow: inset 0px 0px 1px 1px rgba(0, 0, 0, 0.9), 0px 1px 1px 0px rgba(255, 255, 255, 0.13);
+	box-shadow: inset 0px 0px 1px 1px rgba(0, 0, 0, 0.9), 0px 1px 1px 0px rgba(255, 255, 255, 0.13);
+}
+
+#slider .bar {
+	width: 388px;
+	height: 5px;
+	background: #333;
+	position: relative;
+	top: -4px;
+	left: 4px;	
+	
+	background: #1d2e38;
+	background: -moz-linear-gradient(left, #1d2e38 0%, #2b4254 50%, #2b4254 100%);
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#1d2e38), color-stop(50%,#2b4254), color-stop(100%,#2b4254));
+	background: -webkit-linear-gradient(left, #1d2e38 0%,#2b4254 50%,#2b4254 100%);
+	background: -o-linear-gradient(left, #1d2e38 0%,#2b4254 50%,#2b4254 100%);
+	background: -ms-linear-gradient(left, #1d2e38 0%,#2b4254 50%,#2b4254 100%);
+	background: linear-gradient(left, #1d2e38 0%,#2b4254 50%,#2b4254 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1d2e38', endColorstr='#2b4254',GradientType=1 );	
+	
+	-webkit-border-radius: 40px;
+	-moz-border-radius: 40px;
+	border-radius: 40px;
+}
+
+
+
+
+
+input[type="range"] {
+	-webkit-appearance: none;
+	background-color: black;
+	height: 2px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	position: relative;
+	top: 0px;
+	z-index: 1;
+	width: 11px;
+	height: 11px;
+	cursor: pointer;
+	-webkit-box-shadow: 0px 6px 5px 0px rgba(0,0,0,0.6);
+	-moz-box-shadow: 0px 6px 5px 0px rgba(0,0,0,0.6);
+	box-shadow: 0px 6px 5px 0px rgba(0,0,0,0.6);
+	-webkit-border-radius: 40px;
+	-moz-border-radius: 40px;
+	border-radius: 40px;
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ebf1f6), color-stop(50%,#abd3ee), color-stop(51%,#89c3eb), color-stop(100%,#d5ebfb));
+}
+
+input[type="range"]:hover ~ #rangevalue,input[type="range"]:active ~ #rangevalue {
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+	filter: alpha(opacity=100);
+	opacity: 1;
+	top: -75px;
+}
+
+/* Tool Tip */
+
+
+
+
+
+
+
+/*-------------------------
+	Weekdays
+--------------------------*/
+
+
+#clock .weekdays{
+	font-size:12px;
+	position:absolute;
+	width:100%;
+	top:10px;
+	left:0;
+	text-align:center;
+}
+
+
+#clock .weekdays span{
+	opacity:0.2;
+	padding:0 10px;
+}
+
+#clock .weekdays span.active{
+	opacity:1;
+}
+
+
+/*-------------------------
+		AM/PM
+--------------------------*/
+
+
+#clock .ampm{
+	position:absolute;
+	bottom:20px;
+	right:20px;
+	font-size:12px;
+}
+
+
+/*-------------------------
+		Button
+--------------------------*/
+
+.button {
+   border: 1px solid #000000;
+   background: #333333;
+   background: -webkit-gradient(linear, left top, left bottom, from(#ababab), to(#333333));
+   background: -webkit-linear-gradient(top, #ababab, #333333);
+   background: -moz-linear-gradient(top, #ababab, #333333);
+   background: -ms-linear-gradient(top, #ababab, #333333);
+   background: -o-linear-gradient(top, #ababab, #333333);
+   background-image: -ms-linear-gradient(top, #ababab 0%, #333333 100%);
+   padding: 10.5px 21px;
+   -webkit-border-radius: 6px;
+   -moz-border-radius: 6px;
+   border-radius: 6px;
+   -webkit-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
+   -moz-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
+   box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
+   text-shadow: #848b8f 0 1px 0;
+   color: #ffffff;
+   font-size: 14px;
+   font-family: helvetica, serif;
+   text-decoration: none;
+   vertical-align: middle;
+   }
+.button:hover {
+   border: 1px solid #000000;
+   text-shadow: #828282 0 1px 0;
+   background: #787878;
+   background: -webkit-gradient(linear, left top, left bottom, from(#c2c2c2), to(#787878));
+   background: -webkit-linear-gradient(top, #c2c2c2, #787878);
+   background: -moz-linear-gradient(top, #c2c2c2, #787878);
+   background: -ms-linear-gradient(top, #c2c2c2, #787878);
+   background: -o-linear-gradient(top, #c2c2c2, #787878);
+   background-image: -ms-linear-gradient(top, #c2c2c2 0%, #787878 100%);
+   color: #fff;
+   }
+.button:active {
+   text-shadow: #949494 0 1px 0;
+   border: 1px solid #000000;
+   background: #c2c2c2;
+   background: -webkit-gradient(linear, left top, left bottom, from(#424242), to(#787878));
+   background: -webkit-linear-gradient(top, #424242, #c2c2c2);
+   background: -moz-linear-gradient(top, #424242, #c2c2c2);
+   background: -ms-linear-gradient(top, #424242, #c2c2c2);
+   background: -o-linear-gradient(top, #424242, #c2c2c2);
+   background-image: -ms-linear-gradient(top, #424242 0%, #c2c2c2 100%);
+   color: #fff;
+   }
+
+
+.button-holder{
+	width:100%;
+	text-align:center;
+	padding-bottom: 2em;
+}
+/*
+a.button{
+	background-color:#ffffff;
+	
+	background-image:-webkit-linear-gradient(top, #000, #000);
+	background-image:-moz-linear-gradient(top, #000, #000);
+	background-image:linear-gradient(top, #000, #000);
+
+	border:3px solid #FFF;
+	border-radius:2px;
+
+	box-shadow:0 2px 2px #000;
+
+	color:#fff;
+	text-decoration: none !important;
+	padding:15px 20px;
+	display:inline-block;
+	cursor:pointer;
+
+	position:relative;
+	z-index: 1;
+}
+*/
+a.button:hover{
+	opacity:0.9;
+}
+
+.alarm-toggle{
+	position: relative;
+	background-color: #e7e7e7;
+	text-align: center;
+	padding: 0.5em 1em;
+	border-radius: 5px;
+	color: #000;
+}
+
+/*-------------------------
+	Alarm Dialog
+--------------------------*/
+
+
+/* Hide the arrows dispayed in number inputs in webkit */
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    display: none;
+}
+
+.overlay{
+	display:none;
+	position:fixed;
+	width:100%;
+	height:100%;
+	top: 10%;
+	left:0;
+	z-index:10;
+}
+
+#alarm-dialog, 
+#time-is-up{
+	box-sizing: border-box;
+	width:500px;
+	height:375px;
+	background-color:#FFF;
+	opacity: 1;
+	border-radius:2px;
+	position:fixed;
+	top:200px;
+	left:50%;
+	margin-left:-250px;
+	text-align:center;
+	box-shadow: 0 1px 7px 0 rgba(0,0,0,0.2);
+	transition: all .28s cubic-bezier(.4,0,.2,1);
+}
+
+#alarm-dialog h2{
+	/* padding size changed in configure script */
+	text-transform: uppercase;
+	font-size:18px;
+	color:#5e6268;
+	padding: 50px 0;
+}
+
+#alarm-dialog label{
+	text-transform: uppercase;
+	background-color: #f4f4f4;
+	font-size: 11px;
+	display: inline-block;
+	padding: 10px;
+	margin: 4px;
+}
+
+#alarm-dialog label input{
+	display: block;
+	border: 0;
+	font: inherit;
+	font-size: 17px;
+	padding: 6px;
+	outline: none;
+	text-align: center;
+	width: 59px;
+	margin: 10px auto;
+	background-color:#fff;
+}
+
+#alarm-dialog .button-holder{
+	padding-top: 50px;
+	padding-bottom:0;
+}
+
+#alarm-dialog .button-holder .button{
+	width: 250px;
+	box-shadow:0 2px 2px #eee;
+	padding:13px 22px;
+	margin:3px;
+}
+
+/*
+.button.blue{
+	background-color:#82cddd;
+
+	background-image:-webkit-linear-gradient(top, #86d3e4, #82cddd);
+	background-image:-moz-linear-gradient(top, #86d3e4, #82cddd);
+	background-image:linear-gradient(top, #86d3e4, #82cddd);
+
+	border-color:#72c1d2;
+}
+*/
+
+/* Checkmark icon position */
+#alarm-dialog .check{
+	display:block;
+	float: right;
+	position: relative;
+	margin: 0;
+	padding: 0;
+	top: 25px;
+	left: 35px;
+	float: left;
+	cursor:pointer;
+	transition: all .3s ease-out;
+}
+
+/* 'X' icon position */
+#alarm-dialog .close{
+	display:block;
+	float: right;
+	position: relative;
+	margin: 0;
+	padding: 0;
+	top: 25px;
+	right: 35px;
+	float: right;
+	cursor:pointer;
+	transition: all .3s ease-out;
+}
+
+
+
+
+#time-is-up{
+	height: 240px;
+}
+
+#time-is-up h2{
+	padding: 60px 0 40px;
+	font-size: 30px;
+}
+
+#time-is-up .button{
+	padding: 12px 20px;
+	box-shadow: 0 2px 2px #eee;
+}
+
+
+/*----------------------------
+	The Footer
+-----------------------------*/
+
+#alarm-box{
+	width: 100%;
+	height: 100%;
+	font: normal 16px Arial, Helvetica, sans-serif;
+	position: fixed;
+	background-color:#1f1f1f;
+	border-radius:2px 2px 0 0;
+	box-shadow: 0 -1px 4px rgba(0,0,0,0.4);
+	z-index:1;
+}
+
+footer .button-holder{
+	margin: 7px 0;
+	padding: 10px 0px 10px 0px;
+}
+
+footer .button-holder2{
+	height: 300px;
+	width: 300px;
+	position:fixed;
+	left: 50%;
+	margin-left:-150px;
+}
+
+footer .alarm-button{
+	margin: 7px 0px;
+	height: 50px;
+	width: 100%;
+	border-radius:6px;
+	background-color:#373636;
+}
+
+footer .alarm-button.active{
+	background-color:#5e5c5c;
+}
+
+footer .alarm-button.active .close{
+	position: absolute;
+	cursor: pointer;
+	right: 0px;
+	top: 0px;
+	width: 8px;
+	height: 8px;
+	background: url('http://cdn.tutorialzine.com/misc/enhance/v2_footer_bg.png') no-repeat 0 0px;
+}
+
+footer h2{
+	text-transform: uppercase;
+	font-size:18px;
+	color:#DBDFE5;
+	padding: 1em;
+	text-align: center;
+}
+
+footer a.tz{
+	font-weight:normal;
+	font-size:16px !important;
+	text-decoration:none !important;
+	display:block;
+	margin-right: 300px;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+	color:#bfbfbf !important;
+	z-index:1;
+}
+
+footer a.tz:before{
+	content: '';
+	background: url('http://cdn.tutorialzine.com/misc/enhance/v2_footer_bg.png') no-repeat 0 -53px;
+	width: 138px;
+	height: 20px;
+	display: inline-block;
+	position: relative;
+	bottom: -3px;
+}
+
+footer .close{
+	position: absolute;
+	cursor: pointer;
+	width: 8px;
+	height: 8px;
+	background: url('http://cdn.tutorialzine.com/misc/enhance/v2_footer_bg.png') no-repeat 0 0px;
+	top:10px;
+	right:10px;
+	z-index: 3;
+}
+
+footer #tzine-actions{
+	position: absolute;
+	top: 8px;
+	width: 500px;
+	right: 50%;
+	margin-right: -650px;
+	text-align: right;
+	z-index: 2;
+}
+
+footer #tzine-actions iframe{
+	display: inline-block;
+	height: 21px;
+	width: 95px;
+	position: relative;
+	float: left;
+	margin-top: 11px;
+}

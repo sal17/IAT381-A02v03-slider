@@ -1,0 +1,30 @@
+{
+  "name": "IAT 381 Assignment 2",
+  "version": "3",
+  "homepage": "https://github.com/sal17/IAT381-A02v03",
+  "authors": [
+    "Li Sheng-Mei",
+    "Sophia Bhatti",
+    "Gillian Ramsay"
+  ],
+  "main": "index.html",
+  "keywords": [
+    "iat",
+    "381",
+    "assignment",
+    "2"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "velocity": "~1.2.2",
+    "jquery": "~2.1.3",
+    "jquery-mobile": "~1.4.5"
+  }
+}

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<!--Ref: http://tutorialzine.com/2013/06/digital-clock-adding-alarms/-->
+
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>IAT381 : A02 Alarm Clock</title>
+    <link rel="shortcut icon" href="assets/img/alarm_icon.ico"/>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+		<!-- The main CSS file -->
+		<link href="assets/css/style.css" rel="stylesheet" />
+		  <!-- Font awesome link -->
+	  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+		<!--Change BG based on time (not working yet-->
+		<!--Ref: http://www.katgal.com/2007/03/time-sensitive-css-switcher/-->
+	  <div id="hexClock">
+	    <div id="time"></div>
+	    <div id="hexColor"></div>
+	  </div>
+
+	  <script src="assets/js/hexclock.js"></script>
+
+  	<!--[if lt IE 9]>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	</head>
+
+	<!-- BODY -->
+	<body>
+		<div id="clock" class="dark">
+			<div class="display">
+				<div class="weekdays"></div>
+				<div class="ampm"></div>
+				<div class="alarm"></div>
+				<div class="digits"></div>
+			</div>
+		</div>
+
+		<div class="button-holder">
+			<a id="switch-theme" class="button">Theme</a>
+			<a class="alarm-button"></a>
+		</div>
+
+		<!-- The dialog is hidden with css -->
+		<div class="overlay">
+			<div id="alarm-dialog">
+
+				<!-- 'X' Icon. Closes dialog box -->
+				<div class="close">
+					<i class="fa fa-close fa-2x"></i>
+				</div>
+
+				<!-- Checkmark icon. Sets alarm -->
+				<div class="check" id="alarm-set">
+					<i class="fa fa-check fa-2x"></i>
+				</div>
+
+				<!-- Set alarm -->
+				<h2>Set Alarm Countdown</h2>
+				<form onsubmit="return false" oninput="o.value = parseInt(a.value)">
+					Hour : 
+ 					<input type="range" name="a" id="a" value="12" min="0" max="23">
+ 					<output name="o" for="a"></output>
+				</form> 
+				<form onsubmit="return false" oninput="o2.value = parseInt(b.value)">
+					Mins : 
+					<input type="range" name="b" id="b" value="30" min="0" max="59"> 
+  					<output name="o2" for="b"></output>
+				</form> 
+
+				<!-- <label class="hours">
+					Hours
+					<input type="number" value="0" min="0" />
+				</label>
+
+				<label class="minutes">
+					Minutes
+					<input type="number" value="0" min="0" />
+				</label>
+
+				<label class="seconds">
+					Seconds
+					<input type="number" value="0" min="0" />
+				</label> -->
+
+				<!-- Set and clear alarm -->
+				<div class="button-holder">
+					<a id="alarm-clear" class="button red">Clear</a>
+				</div>
+			</div>
+		</div>
+
+		<!-- Times up -->
+		<div class="overlay">
+			<div id="time-is-up">
+				<h2>Time's up!</h2>
+				<div class="button-holder">
+					<a class="button blue">Close</a>
+				</div>
+			</div>
+		</div>
+
+		<!-- Audio -->
+		<audio id="alarm-ring" preload>
+			<source src="assets/audio/ticktac.mp3" type="audio/mpeg" />
+			<source src="assets/audio/ticktac.ogg" type="audio/ogg" />
+		</audio>
+
+		<!-- Footer -->
+		<footer id="alarm-box">
+			<!--go into menu button -->
+      		<div class="button-holder">			
+				<a class="alarm-toggle">Alarm</a>
+			</div>
+			<!-- alarm buttons -->
+			<div class= "button-holder2">
+				<div class="alarm-button">
+				 	<h2 id="0">New Alarm</h2>
+				</div>
+				<div class="alarm-button">
+				 	<h2 id="1">New Alarm</h2>
+				</div>
+				<div class="alarm-button">
+				 	<h2 id="2">New Alarm</h2>
+				</div>
+			</div>
+    </footer>
+        
+		<!-- JavaScript Includes -->
+		<script src="bower_components/jquery/dist/jquery.min.js"></script>
+		<script src="bower_components/velocity/velocity.min.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js"></script>
+		<script src="assets/js/script.js"></script>
+
+	</body>
+</html>
